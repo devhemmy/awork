@@ -2,4 +2,10 @@
   <img src="logo.svg" alt="awork logo" />
 </header>
 
-<app-user-list [users]="users"></app-user-list>
+<main>
+  @if (isLoading) {
+  <div class="loading">Loading users...</div>
+  } @else {
+  <app-user-list [userGroups]="userGroups"></app-user-list>
+  }
+</main>

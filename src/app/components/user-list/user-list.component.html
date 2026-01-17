@@ -1,11 +1,13 @@
-@if (users().length) {
-  <article class="user-list">
-    @for (user of users(); track $index) {
-      <app-user-item [user]="user" [allUsers]="users()" />
-    }
-  </article>
-} @else {
-  <article class="user-list">
-    <p>Loading…</p>
-  </article>
-}
+<article class="user-list">
+  <cdk-virtual-scroll-viewport itemSize="60" class="viewport">
+    <div *cdkVirtualFor="let item of virtualItems">
+      @if (item.type === 'header') {
+      <div class="group-header">
+        {{ item.title }}
+      </div>
+      } @if (item.type === 'user') {
+      <app-user-item [user]="item.user" />
+      }
+    </div>
+  </cdk-virtual-scroll-viewport>
+</article>
