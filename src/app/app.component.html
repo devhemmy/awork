@@ -35,5 +35,28 @@
   </div>
   } @else {
   <app-user-list [userGroups]="userGroups"></app-user-list>
+
+  <div class="pagination">
+    <button
+      class="pagination__button"
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+
+    <div class="pagination__info">
+      <span class="pagination__page">Page {{ currentPage }} of {{ totalPages }}</span>
+      <span class="pagination__results">{{ userGroups.length > 0 ? '5000 users' : 'No results' }}</span>
+    </div>
+
+    <button
+      class="pagination__button"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
   }
 </main>

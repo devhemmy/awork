@@ -18,9 +18,16 @@ export class AppComponent implements OnInit {
 
   searchTerm = '';
   currentGroupBy: 'nat' | 'alpha' = 'nat';
+  currentPage = 1;
+  totalPages = 10;
 
   ngOnInit(): void {
-    this.usersService.loadUsers().subscribe(() => {
+    this.loadPage(this.currentPage);
+  }
+
+  loadPage(page: number) {
+    this.isLoading = true;
+    this.usersService.loadUsers(page).subscribe(() => {
       this.updateList();
     });
   }
@@ -38,16 +45,22 @@ export class AppComponent implements OnInit {
     this.currentGroupBy = type;
     this.updateList();
   }
-}
 
-if (typeof Worker !== 'undefined') {
-  // Create a new
-  const worker = new Worker(new URL('./app.worker', import.meta.url));
-  worker.onmessage = ({ data }) => {
-    console.log(`page got message: ${data}`);
-  };
-  worker.postMessage('hello');
-} else {
-  // Web Workers are not supported in this environment.
-  // You should add a fallback so that your program still executes correctly.
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.loadPage(page);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.goToPage(this.currentPage + 1);
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.goToPage(this.currentPage - 1);
+    }
+  }
 }
