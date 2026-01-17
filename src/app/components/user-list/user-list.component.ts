@@ -2,7 +2,6 @@ import { Component, input, OnChanges, SimpleChanges } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { User, UserGroup } from '../../models/user.model';
 import { UserItemComponent } from '../user-item/user-item.component';
-import { NgClass } from '@angular/common';
 
 type ListItem =
   | { type: 'header'; title: string }
@@ -12,7 +11,7 @@ type ListItem =
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
-  imports: [UserItemComponent, ScrollingModule, NgClass],
+  imports: [UserItemComponent, ScrollingModule],
 })
 export class UserListComponent implements OnChanges {
   userGroups = input.required<UserGroup[]>();

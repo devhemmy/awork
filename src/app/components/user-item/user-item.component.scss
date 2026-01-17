@@ -1,49 +1,113 @@
-@use 'ease/ease-import.scss' as *;
+@use "ease/ease-import.scss" as *;
 
 :host {
-  .user-item {
-    align-items: center;
-    border-bottom: 1px solid $color-fog;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: nowrap;
-    height: 60px;
-    padding: 12px;
+  display: block;
+  border-bottom: 1px solid $color-fog;
+  background: white;
+}
+
+.user-item-row {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f0f9ff;
+  }
+
+  &__image {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+    border: 2px solid $color-fog;
+  }
+
+  &__name {
+    flex: 1;
+    font-weight: 600;
+    min-width: 150px;
+  }
+  &__email {
+    width: 220px;
+    color: #666;
+    font-size: 0.9em;
+  }
+  &__phone {
+    width: 120px;
+    color: #666;
+    font-size: 0.9em;
+  }
+  &__nat {
+    width: 60px;
+    text-align: right;
+    font-weight: bold;
+    color: $color-sky;
+  }
+}
+
+.user-details {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-top: 1px solid $color-fog;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  overflow: hidden;
+
+  h4 {
+    margin: 0 0 10px 0;
     color: $color-night;
+  }
+  p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
 
-    &__image {
-      border-radius: 20%;
-      height: 40px;
-      width: 40px;
-    }
+  .label {
+    font-weight: bold;
+    color: #333;
+  }
+}
 
-    &__name,
-    &__email,
-    &__phone {
-      margin: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: left;
-      white-space: nowrap;
-    }
+.expand-enter {
+  animation: slideDown 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 
-    &__name {
-      flex: 1;
-      min-width: 100px;
-    }
+.expand-leave {
+  animation: slideUp 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 
-    &__email {
-      width: 220px;
-    }
+@keyframes slideDown {
+  from {
+    height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  to {
+    height: 140px;
+    opacity: 1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
 
-    &__phone {
-      width: 110px;
-    }
-
-    &__nat {
-      margin-left: 12px;
-      text-align: right;
-      width: 80px;
-    }
+@keyframes slideUp {
+  from {
+    height: 140px;
+    opacity: 1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
