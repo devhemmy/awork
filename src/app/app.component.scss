@@ -159,6 +159,179 @@
     box-sizing: border-box;
   }
 
+  @media (max-width: 1024px) {
+    .header-content {
+      padding: 16px 24px;
+    }
+
+    .header-top h1 {
+      font-size: 1.5rem;
+    }
+
+    .controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-input {
+      width: 100%;
+      min-width: auto;
+    }
+
+    .group-buttons {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .pagination {
+      width: 100%;
+      justify-content: center;
+      margin-left: 0;
+    }
+
+    main {
+      padding: 20px 24px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-content {
+      padding: 12px 16px;
+    }
+
+    .header-top {
+      margin-bottom: 12px;
+
+      img {
+        height: 28px;
+      }
+
+      h1 {
+        font-size: 1.3rem;
+      }
+    }
+
+    .controls {
+      gap: 12px;
+    }
+
+    .search-input {
+      padding: 10px 16px;
+      font-size: 0.95rem;
+    }
+
+    .group-buttons {
+      flex-wrap: wrap;
+
+      button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        flex: 1;
+        min-width: 140px;
+      }
+    }
+
+    .pagination {
+      gap: 8px;
+
+      &__button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+
+      &__info {
+        padding: 8px 12px;
+      }
+
+      &__page {
+        font-size: 0.85rem;
+      }
+    }
+
+    main {
+      padding: 16px;
+    }
+
+    .loading {
+      .spinner {
+        width: 50px;
+        height: 50px;
+
+        &::after {
+          width: 34px;
+          height: 34px;
+        }
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    .empty-state {
+      &__icon {
+        width: 80px;
+        height: 80px;
+
+        svg {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+        padding: 0 20px;
+      }
+
+      &__button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-top {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px;
+
+      h1 {
+        font-size: 1.2rem;
+      }
+    }
+
+    .group-buttons button {
+      flex: 1 1 100%;
+    }
+
+    .pagination {
+      flex-wrap: wrap;
+
+      &__button {
+        flex: 1;
+        justify-content: center;
+      }
+
+      &__info {
+        flex-basis: 100%;
+        order: -1;
+        text-align: center;
+        margin-bottom: 8px;
+      }
+    }
+  }
+
   .loading {
     display: flex;
     flex-direction: column;
@@ -177,7 +350,7 @@
       position: relative;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         left: 50%;
@@ -242,7 +415,11 @@
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      background: linear-gradient(
+        135deg,
+        rgba(102, 126, 234, 0.1) 0%,
+        rgba(118, 75, 162, 0.1) 100%
+      );
       display: flex;
       align-items: center;
       justify-content: center;
