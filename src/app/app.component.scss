@@ -1,10 +1,78 @@
 :host {
+  display: block;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   header {
-    height: 200px;
-    text-align: center;
-    box-sizing: border-box;
+    background: #2c3e50;
+    color: white;
+    padding: 20px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .search-input {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      width: 250px;
+      font-size: 1rem;
+    }
+
+    .group-buttons {
+      display: flex;
+      gap: 10px;
+
+      button {
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        &.active {
+          background: #4cc9f0;
+          color: #000;
+          font-weight: bold;
+          border-color: #4cc9f0;
+        }
+      }
+    }
+  }
+
+  main {
+    flex: 1;
+    overflow: hidden;
+    background: #f4f7f6;
+    padding: 20px;
+  }
+
+  .loading {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.2rem;
+    color: #666;
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { UsersService } from './services/users.service';
 import { UserGroup } from './models/user.model';
 import { UserListComponent } from './components/user-list/user-list.component';
@@ -7,7 +8,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [UserListComponent],
+  imports: [UserListComponent, FormsModule],
 })
 export class AppComponent implements OnInit {
   usersService = inject(UsersService);
@@ -15,18 +16,27 @@ export class AppComponent implements OnInit {
   userGroups: UserGroup[] = [];
   isLoading = true;
 
+  searchTerm = '';
+  currentGroupBy: 'nat' | 'alpha' = 'nat';
+
   ngOnInit(): void {
-    this.usersService.getUsers().subscribe({
-      next: (result) => {
+    this.usersService.loadUsers().subscribe(() => {
+      this.updateList();
+    });
+  }
+
+  updateList() {
+    this.usersService
+      .processUsers(this.currentGroupBy, this.searchTerm)
+      .subscribe((result) => {
         this.userGroups = result.groupedUsers;
         this.isLoading = false;
-        console.log('Worker finished processing:', result);
-      },
-      error: (err) => {
-        console.error('Error loading users', err);
-        this.isLoading = false;
-      },
-    });
+      });
+  }
+
+  setGrouping(type: 'nat' | 'alpha') {
+    this.currentGroupBy = type;
+    this.updateList();
   }
 }
 

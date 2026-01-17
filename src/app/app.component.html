@@ -1,10 +1,38 @@
 <header>
   <img src="logo.svg" alt="awork logo" />
+
+  <div class="controls">
+    <input
+      type="text"
+      placeholder="Search users..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="updateList()"
+      class="search-input"
+    />
+
+    <div class="group-buttons">
+      <button
+        [class.active]="currentGroupBy === 'nat'"
+        (click)="setGrouping('nat')"
+      >
+        By Nationality
+      </button>
+      <button
+        [class.active]="currentGroupBy === 'alpha'"
+        (click)="setGrouping('alpha')"
+      >
+        By Name (A-Z)
+      </button>
+    </div>
+  </div>
 </header>
 
 <main>
   @if (isLoading) {
-  <div class="loading">Loading users...</div>
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Loading users...</p>
+  </div>
   } @else {
   <app-user-list [userGroups]="userGroups"></app-user-list>
   }
