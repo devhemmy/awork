@@ -1,28 +1,61 @@
 <header>
-  <img src="logo.svg" alt="awork logo" />
+  <div class="header-content">
+    <div class="header-top">
+      <img src="logo.svg" alt="awork logo" />
+      <h1>User Directory</h1>
+    </div>
 
-  <div class="controls">
-    <input
-      type="text"
-      placeholder="Search users..."
-      [(ngModel)]="searchTerm"
-      (ngModelChange)="updateList()"
-      class="search-input"
-    />
+    <div class="controls">
+      <input
+        type="text"
+        placeholder="Search users by name or email..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="updateList()"
+        class="search-input"
+      />
 
-    <div class="group-buttons">
-      <button
-        [class.active]="currentGroupBy === 'nat'"
-        (click)="setGrouping('nat')"
-      >
-        By Nationality
-      </button>
-      <button
-        [class.active]="currentGroupBy === 'alpha'"
-        (click)="setGrouping('alpha')"
-      >
-        By Name (A-Z)
-      </button>
+      <div class="group-buttons">
+        <button
+          [class.active]="currentGroupBy === 'nat'"
+          (click)="setGrouping('nat')"
+        >
+          By Nationality
+        </button>
+        <button
+          [class.active]="currentGroupBy === 'alpha'"
+          (click)="setGrouping('alpha')"
+        >
+          By Name (A-Z)
+        </button>
+      </div>
+
+      <div class="pagination">
+        <button
+          class="pagination__button"
+          (click)="previousPage()"
+          [disabled]="currentPage === 1 || isLoading"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Previous
+        </button>
+
+        <div class="pagination__info">
+          <span class="pagination__page">Page {{ currentPage }} / {{ totalPages }}</span>
+        </div>
+
+        <button
+          class="pagination__button"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages || isLoading"
+        >
+          Next
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </header>
@@ -33,30 +66,21 @@
     <div class="spinner"></div>
     <p>Loading users...</p>
   </div>
-  } @else {
-  <app-user-list [userGroups]="userGroups"></app-user-list>
-
-  <div class="pagination">
-    <button
-      class="pagination__button"
-      (click)="previousPage()"
-      [disabled]="currentPage === 1"
-    >
-      Previous
-    </button>
-
-    <div class="pagination__info">
-      <span class="pagination__page">Page {{ currentPage }} of {{ totalPages }}</span>
-      <span class="pagination__results">{{ userGroups.length > 0 ? '5000 users' : 'No results' }}</span>
+  } @else if (!hasResults) {
+  <div class="empty-state">
+    <div class="empty-state__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
     </div>
-
-    <button
-      class="pagination__button"
-      (click)="nextPage()"
-      [disabled]="currentPage === totalPages"
-    >
-      Next
+    <h2>No users found</h2>
+    <p>Try adjusting your search term or changing the grouping filter.</p>
+    <button class="empty-state__button" (click)="searchTerm = ''; updateList()">
+      Clear Search
     </button>
   </div>
+  } @else {
+  <app-user-list [userGroups]="userGroups"></app-user-list>
   }
 </main>

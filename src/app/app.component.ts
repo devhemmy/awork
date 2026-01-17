@@ -41,6 +41,11 @@ export class AppComponent implements OnInit {
       });
   }
 
+  get hasResults(): boolean {
+    return this.userGroups.length > 0 &&
+           this.userGroups.some(group => group.users.length > 0);
+  }
+
   setGrouping(type: 'nat' | 'alpha') {
     this.currentGroupBy = type;
     this.updateList();

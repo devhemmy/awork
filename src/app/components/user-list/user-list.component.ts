@@ -1,5 +1,5 @@
-import { Component, input, OnChanges, SimpleChanges } from '@angular/core';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { Component, input, OnChanges, SimpleChanges, ViewChild, signal } from '@angular/core';
+import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { User, UserGroup } from '../../models/user.model';
 import { UserItemComponent } from '../user-item/user-item.component';
 
@@ -14,9 +14,12 @@ type ListItem =
   imports: [UserItemComponent, ScrollingModule],
 })
 export class UserListComponent implements OnChanges {
+  @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
+
   userGroups = input.required<UserGroup[]>();
 
   virtualItems: ListItem[] = [];
+  showScrollTop = signal(false);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userGroups'] && this.userGroups()) {
@@ -36,5 +39,14 @@ export class UserListComponent implements OnChanges {
     });
 
     this.virtualItems = flat;
+  }
+
+  onScroll() {
+    const offset = this.viewport?.measureScrollOffset('top') || 0;
+    this.showScrollTop.set(offset > 300);
+  }
+
+  scrollToTop() {
+    this.viewport?.scrollToIndex(0, 'smooth');
   }
 }

@@ -1,5 +1,13 @@
 <article class="user-list">
-  <cdk-virtual-scroll-viewport itemSize="60" class="viewport">
+  <div class="column-headers">
+    <div class="column-headers__avatar"></div>
+    <div class="column-headers__name">Name</div>
+    <div class="column-headers__email">Email</div>
+    <div class="column-headers__phone">Phone</div>
+    <div class="column-headers__nat">Nat</div>
+  </div>
+
+  <cdk-virtual-scroll-viewport itemSize="60" class="viewport" (scrolledIndexChange)="onScroll()">
     <div *cdkVirtualFor="let item of virtualItems">
       @if (item.type === 'header') {
       <div class="group-header">
@@ -10,4 +18,12 @@
       }
     </div>
   </cdk-virtual-scroll-viewport>
+
+  @if (showScrollTop()) {
+  <button class="scroll-to-top" (click)="scrollToTop()" title="Scroll to top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+  }
 </article>
