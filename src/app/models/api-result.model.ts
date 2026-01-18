@@ -17,7 +17,15 @@ export interface UserLocation {
   city: string;
   state: string;
   country: string;
-  postcode: number;
+  postcode: number | string;
+  coordinates: {
+    latitude: string;
+    longitude: string;
+  };
+  timezone: {
+    offset: string;
+    description: string;
+  };
 }
 
 export interface Dob {

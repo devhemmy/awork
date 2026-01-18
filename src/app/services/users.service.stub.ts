@@ -1,14 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { User, UserGroup } from '../models/user.model';
+import { UserGroup } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersServiceStub {
-  getUsers(
-    page = 1
-  ): Observable<{ allUsers: User[]; groupedUsers: UserGroup[] }> {
-    return of({ allUsers: [], groupedUsers: [] });
+  loadUsers(page = 1): Observable<void> {
+    return of(undefined);
   }
+
+  processUsers(
+    groupBy: 'nat' | 'alpha',
+    filterTerm: string = ''
+  ): Observable<{ groupedUsers: UserGroup[] }> {
+    return of({ groupedUsers: [] });
+  }
+
+  getTotalLoadedUsers(): number {
+    return 0;
+  }
+
+  getLoadedPages(): number[] {
+    return [];
+  }
+
+  clearCache(): void {}
 }
