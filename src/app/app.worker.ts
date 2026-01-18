@@ -16,6 +16,11 @@ function processUsers(
   groupByAttribute: string,
   filterTerm: string
 ) {
+  const natCounts: Record<string, number> = {};
+  rawUsers.forEach((u) => {
+    natCounts[u.nat] = (natCounts[u.nat] || 0) + 1;
+  });
+
   let activeUsers = rawUsers;
 
   if (filterTerm) {
@@ -27,11 +32,6 @@ function processUsers(
         u.email.toLowerCase().includes(term)
     );
   }
-
-  const natCounts: Record<string, number> = {};
-  activeUsers.forEach((u) => {
-    natCounts[u.nat] = (natCounts[u.nat] || 0) + 1;
-  });
 
   const mappedUsers = activeUsers.map((user) => ({
     firstname: user.name.first,
