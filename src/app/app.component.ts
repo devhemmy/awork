@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   searchTerm = '';
   currentGroupBy: 'nat' | 'alpha' = 'nat';
   currentPage = 1;
-  totalPages = 10;
+  totalPages = 5;
 
   ngOnInit(): void {
     this.loadPage(this.currentPage);
@@ -42,8 +42,10 @@ export class AppComponent implements OnInit {
   }
 
   get hasResults(): boolean {
-    return this.userGroups.length > 0 &&
-           this.userGroups.some(group => group.users.length > 0);
+    return (
+      this.userGroups.length > 0 &&
+      this.userGroups.some((group) => group.users.length > 0)
+    );
   }
 
   setGrouping(type: 'nat' | 'alpha') {
